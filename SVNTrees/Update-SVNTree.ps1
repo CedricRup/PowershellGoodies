@@ -1,4 +1,4 @@
-function Update-RepositoryTree
+function Update-SVNTree
 {
 	[CmdletBinding()]
     param(
@@ -9,8 +9,8 @@ function Update-RepositoryTree
 		[Alias("FullPath","Path")]
 		[string[]]$RepositoryPath = '.'
     )
-    process { 
-        Get-Repositories($RepositoryPath) | % {
+    process{ 
+        Get-SVNTree -path $RepositoryPath | % {
 			svn update $_.FullPath --accept 'p'
 			$result = svn status $_.FullPath -q | % {$_.StartsWith('C')}
 			if($result -contains $true){

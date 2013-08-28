@@ -7,14 +7,26 @@ function Update-SVNTree
 			 ValueFromPipelineByPropertyName  =$true
 		)]
 		[Alias("FullPath","Path")]
-		[string[]]$RepositoryPath = '.'
+		[string[]]$RepositoryPath = '.',
+		[Switch]$PostponeConficts,
+		[Switch]$Visual
+		
     )
+	begin{
+		if ($PostponeConficts){
+			$svnargs = @("--accept","p");
+		}
+		elseif ($Visual){
+			$svnargs = @("--accept","l");
+		}
+	}
+	
     process{ 
         Get-SVNTree -path $RepositoryPath | % {
-			svn update $_.FullPath --accept 'p'
+			svn update $_.FullPath $svnargs
 			$result = svn status $_.FullPath -q | % {$_.StartsWith('C')}
 			if($result -contains $true){
-				Write-Host "Some conflicts were found... Wanna solve it?"
+				Write-Host -ForegroundColor Red "Some conflicts remain"
 			}
 		}
     }

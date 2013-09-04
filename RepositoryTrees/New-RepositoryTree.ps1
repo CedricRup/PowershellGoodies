@@ -1,4 +1,4 @@
-function New-RepositoryTree($path = ".",$svnBaseUrl)
+function New-RepositoryTree($path = ".")
 {
    $root = (get-item $path).FullName
    $rootDirectory = join-path $root $RepositoryTreeMetaFolder
@@ -6,6 +6,6 @@ function New-RepositoryTree($path = ".",$svnBaseUrl)
    {
       mkdir $rootDirectory | out-null
    }
-   $svnBaseUrl | Set-content -path (Get-SourceFile($root))
+   $null | Set-content -path (Get-SourceFile($root))
    $root
 }

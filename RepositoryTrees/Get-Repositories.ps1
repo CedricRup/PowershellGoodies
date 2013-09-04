@@ -15,10 +15,10 @@ function Get-Repositories{
 			
 		if (Test-Path $repositories)
 		{
-	        @(Get-Content $repositories) | ? { $_.Trim().Length -ne 0} | % {
-				$relativePath = $_
-				$FullPath = Canonicalize-path( join-path $root $_)
-				new-object -typeName PsObject -Property @{RelativePath=$relativePath;FullPath=$FullPath}
+	        @(Import-CSV -path $repositories) | % {
+				$relativePath = $_.RelativePath
+				$FullPath = Canonicalize-path( join-path $root $relativePath)
+				$_ | add-Member -MemberType NoteProperty -Name FullPath -Value $FullPath -PassThru
 			}
 		}
 	}

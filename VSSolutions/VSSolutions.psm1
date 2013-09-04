@@ -1,0 +1,1 @@
+. $psScriptRoot\Build-VSSolutions.ps1

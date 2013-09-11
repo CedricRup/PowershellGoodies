@@ -49,7 +49,4 @@ function  Get-RevisionSetFile($path = '.',$Name)
 	return join-path (Get-RevisionSetFolder $path) ($name)
 }
 
-function  Get-ParameterFile($path = '.',$Name)
-{
-	return join-path (Get-ParametersFolder $path) $name
-}
+

@@ -14,9 +14,8 @@ function Get-SVNTree{
 	
 	process{
 		get-Repositories -Path $path | % {
-			$SvnPath = ($source,$_.RelativePath) -join '/'
-			$SVNTrunk=($SVNPath + '/trunk')
-			$_ | add-Member -MemberType NoteProperty -Name SVNPath -Value $SvnPath
+			$SVNTrunk = $_.Source + '/trunk'
+			$_ | add-Member -MemberType NoteProperty -Name SVNPath -Value $_.Source
 			$_ | add-Member -MemberType NoteProperty -Name SVNTrunk -Value $SVNTrunk
 			$_
 		}

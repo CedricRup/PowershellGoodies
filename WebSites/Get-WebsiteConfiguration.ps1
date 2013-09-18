@@ -20,8 +20,8 @@ function Get-WebSiteConfiguration{
 			{
 				$hostHeader = "ws-$($line.Name -replace 'Rest-','')-$($line.Environment).$($line.Domain)"
 			}
-			$line | add-member -MemberType NoteProperty -Name PhysicalPath -Value $physicalPath
-			$line | add-member -MemberType NoteProperty -Name HostHeader -Value $hostHeader
+			$line | add-Member -NotePropertyMembers @{PhysicalPath=$physicalPath;HostHeader=$hostHeader}
+			$line | add-member -MemberType AliasProperty -Name ApplicationPool -Value Name
 			$line
 		}
 	}

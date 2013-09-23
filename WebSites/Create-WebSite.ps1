@@ -13,7 +13,7 @@ function Create-WebSite{
 		if(!(Test-Path iis:\AppPools\$($WebSiteConfiguration.Name)))
 		{
 			$pool = $WebSiteConfiguration | New-WebAppPool;
-			Set-ItemProperty -Path $pool.PsPath -Name managedRuntimeVersion -value 'V4.0'
+			Set-ItemProperty -Path $pool.PsPath -Name managedRuntimeVersion -value 'v4.0'
 		}
 		$WebSiteConfiguration | new-WebSite -force:$force
 		if ($WebSiteConfiguration.Type -eq 'Rest'){

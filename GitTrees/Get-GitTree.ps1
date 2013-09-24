@@ -8,11 +8,10 @@ function Get-GitTree{
 		$Path = '.'
 	)
 	
-	begin{
-		$source = Get-RepositoryTreeSource -path $path
-	}
-	
 	process{
-		get-Repositories -Path $path 
+		get-Repositories -Path $path | % {
+			$_ | add-member -MemberType NoteProperty -Name GitPath -Value ($_.FullPath + '\.git')
+			$_
+		}		
 	}
 }
